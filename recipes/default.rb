@@ -27,6 +27,8 @@ else
     version node[:mongodb][:package_version]
   end
 end
+ 
+include_recipe "mongodb::build_ssl" if node['mongodb']['ssl']
 
 
 # Create keyFile if specified
@@ -40,7 +42,6 @@ if node[:mongodb][:key_file]
   end
 end
 
-<<<<<<< HEAD
 
 # configure default instance
 mongodb_instance "mongodb" do
