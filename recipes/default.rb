@@ -19,13 +19,11 @@
 # limitations under the License.
 #
 
-if node['mongodb']['ssl']
-  include_recipe "mongodb::build_ssl"
-else
-  package node[:mongodb][:package_name] do
-    action :install
-  end
+package node[:mongodb][:package_name] do
+  action :install
 end
+ 
+include_recipe "mongodb::build_ssl" if node['mongodb']['ssl']
 
 needs_mongo_gem = (node.recipes.include?("mongodb::replicaset") or node.recipes.include?("mongodb::mongos"))
 
