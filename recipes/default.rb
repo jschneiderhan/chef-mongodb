@@ -19,8 +19,12 @@
 # limitations under the License.
 #
 
-package node[:mongodb][:package_name] do
-  action :install
+if node['mongodb']['ssl']
+  include_recipe "mongodb::build_ssl"
+else
+  package node[:mongodb][:package_name] do
+    action :install
+  end
 end
  
 include_recipe "mongodb::build_ssl" if node['mongodb']['ssl']
