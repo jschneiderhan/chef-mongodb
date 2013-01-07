@@ -21,6 +21,8 @@ DAEMON_OPTS="$DAEMON_OPTS --bind_ip <%= @bind_ip %>"
 
 <%= @nojournal ? "DAEMON_OPTS=\"$DAEMON_OPTS --nojournal\"" : "" %>
 
+<%= @auth ? "DAEMON_OPTS=\"$DAEMON_OPTS --auth\"" : "" %>
+
 <% if @replicaset_name %>
 DAEMON_OPTS="$DAEMON_OPTS --replSet <%= @replicaset_name %>"
 <% end %>
@@ -41,3 +43,7 @@ DAEMON_OPTS="$DAEMON_OPTS --smallfiles"
 DAEMON_OPTS="$DAEMON_OPTS --fork"
 DBPATH="<%= @dbpath %>"
 <% end -%>
+
+<% if @ssl %>
+DAEMON_OPTS="$DAEMON_OPTS --sslOnNormalPorts --sslPEMKeyFile=<%= @ssl_pem_key_file %> --sslPEMKeyPassword=<%= @ssl_pem_key_password %>"
+<% end %>

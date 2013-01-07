@@ -19,9 +19,13 @@
 # limitations under the License.
 #
 
-package node[:mongodb][:package_name] do
-  action :install
-  version node[:mongodb][:package_version]
+if node['mongodb']['ssl']
+  include_recipe "mongodb::build_ssl"
+else
+  package node[:mongodb][:package_name] do
+    action :install
+    version node[:mongodb][:package_version]
+  end
 end
 
 
@@ -36,6 +40,7 @@ if node[:mongodb][:key_file]
   end
 end
 
+<<<<<<< HEAD
 
 # configure default instance
 mongodb_instance "mongodb" do
@@ -46,4 +51,8 @@ mongodb_instance "mongodb" do
   dbpath       node['mongodb']['dbpath']
   enable_rest  node['mongodb']['enable_rest']
   smallfiles   node['mongodb']['smallfiles']
+  auth                  node['mongodb']['auth']
+  ssl                   node['mongodb']['ssl']
+  ssl_pem_key_file      node['mongodb']['ssl_pem_key_file']
+  ssl_pem_key_password  node['mongodb']['ssl_pem_key_password']
 end
