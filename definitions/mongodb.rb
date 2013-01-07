@@ -22,7 +22,8 @@
 define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :start],
     :bind_ip => nil, :port => 27017 , :logpath => "/var/log/mongodb",
     :dbpath => "/data", :configfile => "/etc/mongodb.conf", :configserver => [],
-    :replicaset => nil, :enable_rest => false, :notifies => [] do
+    :replicaset => nil, :enable_rest => false, :auth => false, 
+    :ssl => false, :ssl_pem_key_file => nil, :ssl_pem_key_password => nil, :notifies => [] do
     
   include_recipe "mongodb::default"
   
@@ -81,7 +82,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     dbpath = nil
     configserver = configserver_nodes.collect{|n| "#{n['fqdn']}:#{n['mongodb']['port']}" }.join(",")
   end
-  
+
   # default file
   template "#{node['mongodb']['defaults_dir']}/#{name}" do
     action :create
@@ -101,7 +102,11 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "replicaset_name" => replicaset_name,
       "configsrv" => false, #type == "configserver", this might change the port
       "shardsrv" => false,  #type == "shard", dito.
-      "enable_rest" => params[:enable_rest]
+      "enable_rest" => params[:enable_rest],
+      "auth" => params[:auth],
+      "ssl" => params[:ssl],
+      "ssl_pem_key_file" => params[:ssl_pem_key_file],
+      "ssl_pem_key_password" => params[:ssl_pem_key_password]
     )
     notifies :restart, "service[#{name}]"
   end

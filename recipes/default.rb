@@ -19,8 +19,12 @@
 # limitations under the License.
 #
 
-package node[:mongodb][:package_name] do
-  action :install
+if node['mongodb']['ssl']
+  include_recipe "mongodb::build_ssl"
+else
+  package node[:mongodb][:package_name] do
+    action :install
+  end
 end
 
 needs_mongo_gem = (node.recipes.include?("mongodb::replicaset") or node.recipes.include?("mongodb::mongos"))
@@ -37,10 +41,14 @@ if node.recipes.include?("mongodb::default") or node.recipes.include?("mongodb")
   # configure default instance
   mongodb_instance "mongodb" do
     mongodb_type "mongod"
-    bind_ip      node['mongodb']['bind_ip']
-    port         node['mongodb']['port']
-    logpath      node['mongodb']['logpath']
-    dbpath       node['mongodb']['dbpath']
-    enable_rest  node['mongodb']['enable_rest']
+    bind_ip               node['mongodb']['bind_ip']
+    port                  node['mongodb']['port']
+    logpath               node['mongodb']['logpath']
+    dbpath                node['mongodb']['dbpath']
+    enable_rest           node['mongodb']['enable_rest']
+    auth                  node['mongodb']['auth']
+    ssl                   node['mongodb']['ssl']
+    ssl_pem_key_file      node['mongodb']['ssl_pem_key_file']
+    ssl_pem_key_password  node['mongodb']['ssl_pem_key_password']
   end
 end
