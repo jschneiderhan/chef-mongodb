@@ -25,7 +25,7 @@ end
  
 include_recipe "mongodb::build_ssl" if node['mongodb']['ssl']
 
-needs_mongo_gem = (node.recipes.include?("mongodb::replicaset") or node.recipes.include?("mongodb::mongos"))
+needs_mongo_gem = (node.recipe?("mongodb::replicaset") or node.recipe?("mongodb::mongos"))
 
 if needs_mongo_gem
   # install the mongo ruby gem at compile time to make it globally available
@@ -35,7 +35,7 @@ if needs_mongo_gem
   Gem.clear_paths
 end
 
-if node.recipes.include?("mongodb::default") or node.recipes.include?("mongodb")
+if node.recipe?("mongodb::default") or node.recipe?("mongodb")
   # configure default instance
   mongodb_instance "mongodb" do
     mongodb_type "mongod"
