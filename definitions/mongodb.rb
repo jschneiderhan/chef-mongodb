@@ -104,17 +104,13 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "replicaset_name" => replicaset_name,
       "configsrv" => false, #type == "configserver", this might change the port
       "shardsrv" => false,  #type == "shard", dito.
-<<<<<<< HEAD
       "nojournal" => nojournal,
       "enable_rest" => params[:enable_rest],
-      "smallfiles" => params[:smallfiles]
-=======
-      "enable_rest" => params[:enable_rest],
+      "smallfiles" => params[:smallfiles],
       "auth" => params[:auth],
       "ssl" => params[:ssl],
       "ssl_pem_key_file" => params[:ssl_pem_key_file],
       "ssl_pem_key_password" => params[:ssl_pem_key_password]
->>>>>>> Support for building in ssl support from source, and specifying ssl and auth command line params
     )
     notifies :restart, "service[#{name}]"
   end
