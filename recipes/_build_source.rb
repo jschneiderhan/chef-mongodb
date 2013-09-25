@@ -13,7 +13,7 @@ package 'libboost-filesystem-dev'
 directory node['mongodb']['source']['prefix']
 
 build_options = []
-build_options << '--ssl' if node['mongodb']['ssl']['enabled']
+build_options << '--ssl' if node['mongodb']['source']['compile_ssl']
 build_options << "-j #{node['cpu']['total']}"
 
 mongo_source_tarball = "mongodb-src-r#{node[:mongodb][:source][:version]}.tar.gz"

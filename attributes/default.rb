@@ -81,6 +81,7 @@ default[:mongodb][:source][:sha] = "74496298ce47cf3ad70ea02abb2ee8b2"
 default[:mongodb][:source][:prefix] = "/usr/local"
 default[:mongodb][:source][:src_dir] = "/usr/src/mongodb-#{default[:mongodb][:source][:version]}"
 default[:mongodb][:source][:url] = "http://downloads.mongodb.org/src"
+default[:mongodb][:source][:compile_ssl] = false
 
 default[:mongodb][:package_version] = nil
 default[:mongodb][:nojournal] = false
