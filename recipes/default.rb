@@ -20,7 +20,7 @@
 #
 
 if node[:mongodb][:build_type] == "source"
-  include_recipe "mongodb::_build_ssl"
+  include_recipe "mongodb::_build_source"
 else
   package node[:mongodb][:package_name] do
     action :install
