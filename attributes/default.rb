@@ -74,6 +74,19 @@ else
 
 end
 
+default[:mongodb][:build_type] = "package" # valid values are 'source' and 'package'
+
+default[:mongodb][:source][:version] = "2.4.6"
+default[:mongodb][:source][:sha] = "74496298ce47cf3ad70ea02abb2ee8b2"
+default[:mongodb][:source][:prefix] = "/usr/local"
+default[:mongodb][:source][:src_dir] = "/usr/src/mongodb-#{default[:mongodb][:source][:version]}"
+default[:mongodb][:source][:url] = "http://downloads.mongodb.org/src"
+
 default[:mongodb][:package_version] = nil
 default[:mongodb][:nojournal] = false
 default[:mongodb][:template_cookbook] = "mongodb"
+
+default[:mongodb][:ssl][:enabled] = false
+default[:mongodb][:ssl][:auth] = nil
+default[:mongodb][:ssl][:pem_key_file] = nil
+default[:mongodb][:ssl][:pem_key_password] = nil

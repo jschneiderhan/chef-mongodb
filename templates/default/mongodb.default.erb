@@ -45,5 +45,5 @@ DBPATH="<%= @dbpath %>"
 <% end -%>
 
 <% if @ssl %>
-DAEMON_OPTS="$DAEMON_OPTS --sslOnNormalPorts --sslPEMKeyFile=<%= @ssl_pem_key_file %> --sslPEMKeyPassword=<%= @ssl_pem_key_password %>"
+DAEMON_OPTS="$DAEMON_OPTS --sslOnNormalPorts --sslPEMKeyFile=<%= @pem_key_file %> --sslPEMKeyPassword=<%= @pem_key_password %>"
 <% end %>

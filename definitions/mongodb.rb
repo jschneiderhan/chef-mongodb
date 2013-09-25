@@ -23,7 +23,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     :bind_ip => nil, :port => 27017 , :logpath => "/var/log/mongodb",
     :dbpath => "/data", :configserver => [],
     :replicaset => nil, :enable_rest => false, :smallfiles => false, :notifies => [],
-    :auth => false, :ssl => false, :ssl_pem_key_file => nil, :ssl_pem_key_password => nil, :notifies => [] do
+    :auth => false, :ssl => false, :pem_key_file => nil, :pem_key_password => nil, :notifies => [] do
     
   include_recipe "mongodb::default"
   
@@ -109,8 +109,8 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "smallfiles" => params[:smallfiles],
       "auth" => params[:auth],
       "ssl" => params[:ssl],
-      "ssl_pem_key_file" => params[:ssl_pem_key_file],
-      "ssl_pem_key_password" => params[:ssl_pem_key_password]
+      "pem_key_file" => params[:pem_key_file],
+      "pem_key_password" => params[:pem_key_password]
     )
     notifies :restart, "service[#{name}]"
   end

@@ -19,16 +19,18 @@
 # limitations under the License.
 #
 
-if node['mongodb']['ssl']
-  include_recipe "mongodb::build_ssl"
+if node[:mongodb][:build_type] == "source"
+  include_recipe "mongodb::_build_ssl"
 else
   package node[:mongodb][:package_name] do
     action :install
     version node[:mongodb][:package_version]
   end
 end
- 
-include_recipe "mongodb::build_ssl" if node['mongodb']['ssl']
+
+if node[:mongodb][:ssl][:enabled]
+  include_recipe "mongodb::build_ssl"
+end
 
 
 # Create keyFile if specified
@@ -52,8 +54,10 @@ mongodb_instance "mongodb" do
   dbpath       node['mongodb']['dbpath']
   enable_rest  node['mongodb']['enable_rest']
   smallfiles   node['mongodb']['smallfiles']
-  auth                  node['mongodb']['auth']
-  ssl                   node['mongodb']['ssl']
-  ssl_pem_key_file      node['mongodb']['ssl_pem_key_file']
-  ssl_pem_key_password  node['mongodb']['ssl_pem_key_password']
+  if node['mongodb']['ssl']['enabled']
+    auth                  node['mongodb']['auth']
+    ssl                   node['mongodb']['ssl']['enabled']
+    pem_key_file      node['mongodb']['ssl']['pem_key_file']
+    pem_key_password  node['mongodb']['ssl']['pem_key_password']
+  end
 end
