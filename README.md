@@ -84,6 +84,18 @@ The result is a new system service with
   /etc/init.d/my_instance <start|stop|restart|status>
 ```
 
+You can enable SSL (as long as your binary was compiled with the ssl flag enabled) by setting a few attributes
+
+```ruby
+mongodb_instance "mongodb" do
+  ssl                   true
+  ssl_pem_key_file      "/etc/ssl/cert-and-password-protected-key.pem"
+  ssl_pem_key_password  "securepassphrase"
+end
+```
+
+
+
 ## Replicasets
 
 Add `mongodb::replicaset` to the node's run_list. Also choose a name for your

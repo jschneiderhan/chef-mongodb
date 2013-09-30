@@ -22,7 +22,8 @@
 define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :start],
     :bind_ip => nil, :port => 27017 , :logpath => "/var/log/mongodb",
     :dbpath => "/data", :configserver => [],
-    :replicaset => nil, :enable_rest => false, :smallfiles => false, :notifies => [] do
+    :replicaset => nil, :enable_rest => false, :smallfiles => false,
+    :ssl => false, :ssl_pem_key_file => nil, :ssl_key_passphrase => nil, :notifies => [] do
     
   include_recipe "mongodb::default"
   
@@ -105,11 +106,15 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "shardsrv" => false,  #type == "shard", dito.
       "nojournal" => nojournal,
       "enable_rest" => params[:enable_rest],
-      "smallfiles" => params[:smallfiles]
+      "smallfiles" => params[:smallfiles],
+      "auth" => params[:auth],
+      "ssl" => params[:ssl],
+      "ssl_pem_key_file" => params[:ssl_pem_key_file],
+      "ssl_pem_key_password" => params[:ssl_pem_key_passphrase]
     )
     notifies :restart, "service[#{name}]"
   end
-  
+
   # log dir [make sure it exists]
   directory logpath do
     owner node[:mongodb][:user]
