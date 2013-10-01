@@ -46,4 +46,7 @@ mongodb_instance "mongodb" do
   dbpath       node['mongodb']['dbpath']
   enable_rest  node['mongodb']['enable_rest']
   smallfiles   node['mongodb']['smallfiles']
+  ssl                node[:mongodb][:ssl][:enabled]
+  ssl_pem_key_file   node[:mongodb][:ssl][:pem_key_file]
+  ssl_key_passphrase node[:mongodb][:ssl][:key_passphrase]
 end
