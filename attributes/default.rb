@@ -48,14 +48,14 @@ default[:mongodb][:ulimit][:open_files] = 64000
 default[:mongodb][:ulimit][:memory_size] = "unlimited"
 default[:mongodb][:ulimit][:processes] = 32000
 
-default[:mongodb][:init_dir] = "/etc/init.d"
+default[:mongodb][:init_file] = "/etc/init.d/mongodb"
 
 default[:mongodb][:init_script_template] = "mongodb.init.erb"
 
 case node['platform_family']
 when "freebsd"
   default[:mongodb][:defaults_dir] = "/etc/rc.conf.d"
-  default[:mongodb][:init_dir] = "/usr/local/etc/rc.d"
+  default[:mongodb][:init_file] = "/usr/local/etc/rc.d/mongodb"
   default[:mongodb][:root_group] = "wheel"
   default[:mongodb][:package_name] = "mongodb"
 
