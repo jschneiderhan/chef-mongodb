@@ -23,7 +23,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     :bind_ip => nil, :port => 27017 , :logpath => "/var/log/mongodb",
     :dbpath => "/data", :configserver => [],
     :replicaset => nil, :enable_rest => false, :smallfiles => false,
-    :ssl => false, :ssl_pem_key_file => nil, :ssl_key_passphrase => nil, :notifies => [] do
+    :ssl => false, :ssl_pem_key_file => nil, :ssl_pem_key_passphrase => nil, :notifies => [] do
     
   include_recipe "mongodb::default"
   

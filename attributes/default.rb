@@ -78,6 +78,6 @@ default[:mongodb][:package_version] = nil
 default[:mongodb][:nojournal] = false
 default[:mongodb][:template_cookbook] = "mongodb"
 
-default[:mongodb][:ssl][:enabled]        = nil
-default[:mongodb][:ssl][:pem_key_file]   = nil
-default[:mongodb][:ssl][:key_passphrase] = nil
+default[:mongodb][:ssl][:enabled]            = nil
+default[:mongodb][:ssl][:pem_key_file]       = nil
+default[:mongodb][:ssl][:pem_key_passphrase] = nil
