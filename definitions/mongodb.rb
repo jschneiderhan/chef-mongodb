@@ -136,7 +136,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
   end
   
   # init script
-  template "#{node['mongodb']['init_file']}/#{name}" do
+  template "#{node['mongodb']['init_file']}" do
     action :create
     cookbook node['mongodb']['template_cookbook']
     source node[:mongodb][:init_script_template]
